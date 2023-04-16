@@ -1,4 +1,4 @@
-module github.com/doki-programs/hermes
+module github.com/mateenbagheri/hermes
 
 go 1.19
 

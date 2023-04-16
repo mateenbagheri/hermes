@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/doki-programs/hermes/config/db"
+	"github.com/mateenbagheri/hermes/config/db"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/rs/zerolog"
 )
