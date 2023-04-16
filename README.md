@@ -58,4 +58,18 @@ logger.Tracev("This is a trace message with additional data", "key1", "value1", 
 You can configure the logger service by setting environment variables or using a configuration file named `.env` in main directory. See the configuration documentation at `.env.example` for more details.
 
 ## Contributing
-Contributions to this repository are welcome! 
+Thank you for considering contributing to Hermes! Please follow these guidelines to ensure your contribution is properly considered:
+
+1. Fork the repository and create your branch from main.
+2. Make your changes, and add new tests as appropriate.
+3. Run go test to make sure all tests pass.
+4. Format your code with gofmt -s.
+5. Ensure your code passes golint.
+6. Commit your changes and push your branch to your forked repository.
+Create a pull request to the main Hermes repository.
+
+If you would like to report a bug or suggest a new feature, please feel free to open a GitHub issue in the Hermes repository. We welcome all feedback and suggestions!
+
+
+
+
