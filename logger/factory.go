@@ -6,6 +6,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/doki-programs/hermes/config/db"
+	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
 	"github.com/rs/zerolog"
 )
 
@@ -151,11 +153,11 @@ func (f *Factory) appendZerologFileWriter(serviceName string, writers *[]io.Writ
 func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer) {
 	// TODO: rewrite to add new config rules here
 
-	// config := db.NewInfluxConfig()
+	config := db.NewInfluxConfig()
 
-	// client := influxdb2.NewClient(config.Address(), config.AuthToken())
-	// api := client.WriteAPI(config.Organization(), config.Bucket())
-	// writer := &influxWriter{client, api}
+	client := influxdb2.NewClient(config.Address(), config.AuthToken())
+	api := client.WriteAPI(config.Organization(), config.Bucket())
+	writer := &influxWriter{client, api}
 
-	// *writers = append(*writers, writer)
+	*writers = append(*writers, writer)
 }
