@@ -3,8 +3,8 @@ package main
 import (
 	"time"
 
-	"github.com/mateenbagheri/hermes/logger"
 	"github.com/joho/godotenv"
+	"github.com/mateenbagheri/hermes/logger"
 )
 
 // this main function is not necc
