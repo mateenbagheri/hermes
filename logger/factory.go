@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"os"
@@ -151,13 +152,17 @@ func (f *Factory) appendZerologFileWriter(serviceName string, writers *[]io.Writ
 }
 
 func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer) {
-	// TODO: rewrite to add new config rules here
-
 	config := db.NewInfluxConfig()
 
 	client := influxdb2.NewClient(config.Address(), config.AuthToken())
 	api := client.WriteAPI(config.Organization(), config.Bucket())
-	writer := &influxWriter{client, api}
 
+	// validate client connection health
+	_, err := client.Health(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	writer := &influxWriter{client, api}
 	*writers = append(*writers, writer)
 }

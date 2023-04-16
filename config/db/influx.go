@@ -1,7 +1,9 @@
 // Package db provides configuration for connecting to databases.
 package db
 
-import "os"
+import (
+	"os"
+)
 
 // InfluxConfig is an interface for getting the configuration details required to connect to InfluxDB.
 type InfluxConfig interface {
