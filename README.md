@@ -1,9 +1,11 @@
 # Hermes
+>Hermes was the messenger of the gods in Greek mythology, known for his cunning, speed, and versatility. He was the son of Zeus and the nymph Maia, and he was born in a cave on Mount Cyllene in Arcadia.
+
 This repository provides a logger service that implements the ZeroLog repository and supports three types of logger writers:
 
-InfluxDB writer: logs messages to an InfluxDB database
-*CLI writer: logs messages to the console (stdout)
-*File writer: logs messages to a file
+* DB writer: logs messages to a database (there is an influxDB implementation integrated too)
+* CLI writer: logs messages to the console (stdout)
+* File writer: logs messages to a file
 
 ## Installation
 To use the logger service, you'll need to install the package using Go modules:
