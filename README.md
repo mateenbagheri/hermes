@@ -18,16 +18,23 @@ go get github.com/your-username/logger-service
 To use the logger service, you'll first need to create a logger instance using one of the available writer types:
 
 ```go
-import "github.com/your-username/logger-service"
+import logger "github.com/doki-programs/hermes"
 
-// Create a new logger instance with an InfluxDB writer
-logger := logger.NewLogger(logger.InfluxDBWriter, "my-influxdb-url", "my-influxdb-token", "my-influxdb-org", "my-influxdb-bucket")
+logger := logger.New(logger.ZeroLoggerType).
+	WithLevel(logger.DebugLevel).
+	WithServiceName("test").
+	WithWriters(
+      	// Create a new logger instance with a CLI writer
+		logger.ConsoleWriterType,
+      	// Create a new logger instance with a file writer
+		logger.FileWriterType,
+      	// Create a new logger instance with an InfluxDB writer
+		logger.DatabaseWriterType,
+	).
+	Build().
+	WithScope("main")
 
-// Create a new logger instance with a CLI writer
-logger := logger.NewLogger(logger.CLIWriter)
-
-// Create a new logger instance with a file writer
-logger := logger.NewLogger(logger.FileWriter, "/path/to/logfile.log")
+logger.Debug("this is a test")
 ```
 Once you have a logger instance, you can use it to log messages at different levels:
 
@@ -47,8 +54,8 @@ You can also log messages with additional key-value pairs:
 logger.Tracev("This is a trace message with additional data", "key1", "value1", "key2", "value2")
 ```
 
-Configuration
-You can configure the logger service by setting environment variables or using a configuration file. See the configuration documentation for more details.
+## Configuration
+You can configure the logger service by setting environment variables or using a configuration file named `.env` in main directory. See the configuration documentation at `.env.example` for more details.
 
-Contributing
-Contributions to this repository are welcome! See the contributing guidelines for more information.
+## Contributing
+Contributions to this repository are welcome! 
