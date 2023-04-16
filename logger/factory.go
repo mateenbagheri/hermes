@@ -163,6 +163,14 @@ func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer) {
 		panic(err)
 	}
 
+	connected, err := client.Ping(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	if !connected {
+		panic("can't ping the influx db")
+	}
 	writer := &influxWriter{client, api}
 	*writers = append(*writers, writer)
 }
