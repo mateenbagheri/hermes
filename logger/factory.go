@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/mateenbagheri/hermes/config/db"
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
+	"github.com/mateenbagheri/hermes/config/db"
 	"github.com/rs/zerolog"
 )
 
@@ -65,6 +65,8 @@ func (f *Factory) WithServiceName(name string) *Factory {
 }
 
 // WithLevel is a function that sets the logging level for the Factory.
+// Currently since we only have ZeroLog implemented, other values are considered
+// to be invalid.
 func (f *Factory) WithLevel(level Level) *Factory {
 	switch f.typ {
 	case ZeroLoggerType:
