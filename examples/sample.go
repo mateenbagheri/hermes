@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"github.com/doki-programs/hermes/logger"
+	"github.com/mateenbagheri/hermes/logger"
 	"github.com/joho/godotenv"
 )
 
