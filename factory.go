@@ -1,14 +1,14 @@
-package logger
+package hermes
 
 import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"time"
 
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
-	"github.com/mateenbagheri/hermes/config/db"
 	"github.com/rs/zerolog"
 )
 
@@ -26,9 +26,13 @@ const (
 
 // Factory is a struct that holds the type, service name, and zerolog.Logger.
 type Factory struct {
-	typ        Type
-	service    string
-	zerologger *zerolog.Logger
+	typ          Type
+	address      string
+	authToken    string
+	organization string
+	bucket       string
+	service      string
+	zerologger   *zerolog.Logger
 }
 
 // New is a function that creates and returns a new Factory.
@@ -89,6 +93,15 @@ func (f *Factory) WithStackError() *Factory {
 	return f
 }
 
+func (f *Factory) WithInfluxConfig(address, authToken, organization, bucket string) *Factory {
+	f.address = address
+	f.authToken = authToken
+	f.organization = organization
+	f.bucket = bucket
+
+	return f
+}
+
 // Build is a function that builds and returns the Logger.
 func (f *Factory) Build() Logger { //nolint
 	switch f.typ {
@@ -112,7 +125,7 @@ func (f *Factory) zerologWriters(writerTypes ...WriterType) []io.Writer {
 		case FileWriterType:
 			f.appendZerologFileWriter(f.service, &writers)
 		case DatabaseWriterType:
-			f.appendZerologInfluxWriter(&writers)
+			f.appendZerologInfluxWriter(&writers, f.address, f.authToken, f.organization, f.bucket)
 		default:
 			panic("writer type not acceptable")
 		}
@@ -153,11 +166,10 @@ func (f *Factory) appendZerologFileWriter(serviceName string, writers *[]io.Writ
 	*writers = append(*writers, file)
 }
 
-func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer) {
-	config := db.NewInfluxConfig()
-
-	client := influxdb2.NewClient(config.Address(), config.AuthToken())
-	api := client.WriteAPI(config.Organization(), config.Bucket())
+func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer, address, authToken, organization, bucket string) {
+	log.Fatal(address, authToken, organization)
+	client := influxdb2.NewClient(address, authToken)
+	api := client.WriteAPI(organization, bucket)
 
 	// validate client connection health
 	_, err := client.Health(context.Background())

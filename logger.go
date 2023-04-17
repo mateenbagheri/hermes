@@ -1,4 +1,4 @@
-package logger
+package hermes
 
 // Logger interface defines the logging methods that are common across different loggers
 type Logger interface {
