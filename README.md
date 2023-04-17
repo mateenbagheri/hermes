@@ -13,7 +13,7 @@ This repository provides a logger service that implements the ZeroLog repository
 To use the logger service, you'll need to install the package using Go modules:
 
 ```
-go get github.com/your-username/logger-service
+go get github.com/mateenbagheri/hermes
 ```
 
 ## Usage
