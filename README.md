@@ -23,24 +23,24 @@ To use the logger service, you'll first need to create a logger instance using o
 ```go
 import logger "github.com/doki-programs/hermes"
 logger := hermes.New(hermes.ZeroLoggerType).
- WithInfluxConfig(
-  os.Getenv("INFLUX_ADDRESS"),
-  os.Getenv("INFLUX_TOKEN"),
-  os.Getenv("INFLUX_ORGANIZATION"),
-  os.Getenv("INFLUX_BUCKET"),
- ).
- WithLevel(hermes.DebugLevel).
- WithServiceName("test").
- WithWriters(
-  // Create a new logger instance with a CLI writer
-  hermes.ConsoleWriterType,
-  // Create a new logger instance with a file writer
-  hermes.FileWriterType,
-  // Create a new logger instance with an InfluxDB writer
-  hermes.DatabaseWriterType,
- ).
- Build().
- WithScope("main")
+    WithInfluxConfig(
+       os.Getenv("INFLUX_ADDRESS"),
+       os.Getenv("INFLUX_TOKEN"),
+       os.Getenv("INFLUX_ORGANIZATION"),
+       os.Getenv("INFLUX_BUCKET"),
+    ).
+    WithLevel(hermes.DebugLevel).
+    WithServiceName("test").
+    WithWriters(
+        // Create a new logger instance with a CLI writer
+        hermes.ConsoleWriterType,
+        // Create a new logger instance with a file writer
+        hermes.FileWriterType,
+        // Create a new logger instance with an InfluxDB writer
+        hermes.DatabaseWriterType,
+    ).
+    Build().
+    WithScope("main")
 
 logger.Debug("this is a test")
 
