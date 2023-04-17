@@ -1,10 +1,11 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/mateenbagheri/hermes/logger"
+	"github.com/mateenbagheri/hermes"
 )
 
 // this main function is not necc
@@ -14,13 +15,19 @@ func main() {
 		panic("could not load environments")
 	}
 
-	logger := logger.New(logger.ZeroLoggerType).
-		WithLevel(logger.DebugLevel).
+	logger := hermes.New(hermes.ZeroLoggerType).
+		WithInfluxConfig(
+			os.Getenv("INFLUX_ADDRESS"),
+			os.Getenv("INFLUX_TOKEN"),
+			os.Getenv("INFLUX_ORGANIZATION"),
+			os.Getenv("INFLUX_BUCKET"),
+		).
+		WithLevel(hermes.DebugLevel).
 		WithServiceName("test").
 		WithWriters(
-			logger.ConsoleWriterType,
-			logger.FileWriterType,
-			logger.DatabaseWriterType,
+			hermes.ConsoleWriterType,
+			hermes.FileWriterType,
+			hermes.DatabaseWriterType,
 		).
 		Build().
 		WithScope("main")

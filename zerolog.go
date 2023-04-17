@@ -1,4 +1,4 @@
-package logger
+package hermes
 
 import (
 	"github.com/rs/zerolog"
