@@ -167,7 +167,6 @@ func (f *Factory) appendZerologFileWriter(serviceName string, writers *[]io.Writ
 }
 
 func (f *Factory) appendZerologInfluxWriter(writers *[]io.Writer, address, authToken, organization, bucket string) {
-	log.Fatal(address, authToken, organization)
 	client := influxdb2.NewClient(address, authToken)
 	api := client.WriteAPI(organization, bucket)
 
